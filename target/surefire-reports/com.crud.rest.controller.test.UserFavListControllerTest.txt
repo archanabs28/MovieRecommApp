@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.crud.rest.controller.test.UserFavListControllerTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.442 sec

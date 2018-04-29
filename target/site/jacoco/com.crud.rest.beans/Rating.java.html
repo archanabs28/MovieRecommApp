@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Rating.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Parent</a> &gt; <a href="index.source.html" class="el_package">com.crud.rest.beans</a> &gt; <span class="el_source">Rating.java</span></div><h1>Rating.java</h1><pre class="source lang-java linenums">package com.crud.rest.beans;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+/**
+ *
+ * @author Archana
+ */
+@Entity
+@Table(name=&quot;Rating&quot;)
+@JsonIgnoreProperties({ &quot;hibernateLazyInitializer&quot;, &quot;handler&quot; })//very imp
+public class Rating {
+
+	@Id
+	@Column
+	private int userid;
+	
+	
+	@Column
+	private float rating;
+	
+	@Column
+	private int movieid;
+
+	/**
+	 * 
+	 */
+	public Rating() {
+<span class="fc" id="L34">		super();</span>
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L36">	}</span>
+
+	/**
+	 * @return the userid
+	 */
+	public int getUserid() {
+<span class="fc" id="L42">		return userid;</span>
+	}
+
+	/**
+	 * @param userid the userid to set
+	 */
+	public void setUserid(int userid) {
+<span class="fc" id="L49">		this.userid = userid;</span>
+<span class="fc" id="L50">	}</span>
+
+	/**
+	 * @return the rating
+	 */
+	public float getRating() {
+<span class="fc" id="L56">		return rating;</span>
+	}
+
+	/**
+	 * @param rating the rating to set
+	 */
+	public void setRating(float rating) {
+<span class="fc" id="L63">		this.rating = rating;</span>
+<span class="fc" id="L64">	}</span>
+
+	/**
+	 * @return the movieid
+	 */
+	public int getMovieid() {
+<span class="fc" id="L70">		return movieid;</span>
+	}
+
+	/**
+	 * @param movieid the movieid to set
+	 */
+	public void setMovieid(int movieid) {
+<span class="fc" id="L77">		this.movieid = movieid;</span>
+<span class="fc" id="L78">	}</span>
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

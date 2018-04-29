@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Parent</a> &gt; <a href="index.source.html" class="el_package">com.crud.rest.dao</a> &gt; <span class="el_source">SearchDaoImpl.java</span></div><h1>SearchDaoImpl.java</h1><pre class="source lang-java linenums">package com.crud.rest.dao;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+import com.crud.rest.beans.Movie;
+import com.crud.rest.beans.Search;
+
+
+/**
+ * @author Archana
+ *
+ */
+<span class="nc" id="L26">public class SearchDaoImpl implements SearchDao{</span>
+
+
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	//setter for sessionFactory
+	public void setSessionFactory(SessionFactory sessionFactory) {
+<span class="nc" id="L34">		this.sessionFactory = sessionFactory;</span>
+<span class="nc" id="L35">	}</span>
+
+	@Override
+	public List&lt;String&gt; getSearchword(int userid) {
+		// TODO Auto-generated method stub
+
+<span class="nc" id="L41">		List&lt;String&gt; searchWord = new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L42">		Session session = sessionFactory.openSession();</span>
+	//	searchWord = session.createQuery(&quot;From com.crud.rest.beans.Search where userid=&quot;+userid+&quot; order by time desc&quot;).list();
+		
+<span class="nc" id="L45">		String sql = &quot;select s.searchword from Search s where s.userid= :userid and s.searchword is not null order by time desc&quot;;</span>
+<span class="nc" id="L46">	     SQLQuery query = session.createSQLQuery(sql);</span>
+<span class="nc" id="L47">	     query.setParameter(&quot;userid&quot;, userid);</span>
+	     
+<span class="nc" id="L49">	     searchWord = query.setMaxResults(5).list();</span>
+<span class="nc" id="L50">	     session.close();</span>
+<span class="nc" id="L51">		return searchWord;</span>
+
+	}
+
+	@Override
+	public void saveSearch(Search searchData) {
+		// TODO Auto-generated method stub
+
+<span class="nc" id="L59">		Session session = sessionFactory.openSession();</span>
+<span class="nc" id="L60">		Transaction transaction = session.beginTransaction();</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">		if (searchData != null) {</span>
+			try {
+<span class="nc" id="L63">				session.save(searchData);</span>
+<span class="nc" id="L64">				transaction.commit();</span>
+<span class="nc" id="L65">			} catch (Exception e) {</span>
+<span class="nc" id="L66">				transaction.rollback();</span>
+<span class="nc" id="L67">				session.close();</span>
+<span class="nc" id="L68">			}</span>
+
+		}
+
+<span class="nc" id="L72">	}</span>
+
+	@Override
+	public boolean isSearchExist(Search search) {
+		// TODO Auto-generated method stub
+<span class="nc bnc" id="L77" title="All 2 branches missed.">		return findSearchData(search)!=null;</span>
+	}
+
+	@Override
+	public Search findSearchData(Search search) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L83">		Session session = sessionFactory.openSession();</span>
+<span class="nc" id="L84">		Transaction transaction = session.beginTransaction();</span>
+<span class="nc" id="L85">		Search word= new Search(search.getUserid(), search.getsearchWord(),search.getTime());</span>
+<span class="nc" id="L86">		String hql = &quot;from com.crud.rest.beans.Search where userid = &quot;+word.getUserid()+&quot; and searchword like ?&quot;;</span>
+		try {
+			
+<span class="nc" id="L89">			Query query = session.createQuery(hql);</span>
+<span class="nc" id="L90">			query.setParameter(0, word.getsearchWord());</span>
+<span class="nc" id="L91">			word = (Search) query.uniqueResult();</span>
+<span class="nc" id="L92">			transaction.commit();</span>
+<span class="nc" id="L93">			session.close();</span>
+<span class="nc" id="L94">		} catch (Exception e) {</span>
+<span class="nc" id="L95">			transaction.rollback();</span>
+<span class="nc" id="L96">			session.close();</span>
+<span class="nc" id="L97">		}</span>
+<span class="nc" id="L98">		return word;</span>
+	}
+
+	@Override
+	public List&lt;Movie&gt; getMovieDataFromSearchWord(String name) {
+		// TODO Auto-generated method stub
+		
+<span class="nc" id="L105">		List&lt;Movie&gt; movie = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc" id="L106">		Session session = sessionFactory.openSession();</span>
+<span class="nc" id="L107">		String moviename = name.toLowerCase();</span>
+<span class="nc" id="L108">		movie = session.createQuery(&quot;From com.crud.rest.beans.Movie where lower(moviename) like '%&quot;+moviename+&quot;%'&quot;).list();</span>
+<span class="nc" id="L109">		  session.close();</span>
+<span class="nc" id="L110">		return movie;</span>
+		
+	}
+
+	@Override
+	public List&lt;Movie&gt; recommendedBasedonPrevSearch(int userid) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L117">		List&lt;Movie&gt; movieRecommended = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc" id="L118">		List&lt;String&gt; searchWords = getSearchword(userid);</span>
+<span class="nc" id="L119">		int listSize=searchWords.size();</span>
+		String sql;
+<span class="nc bnc" id="L121" title="All 2 branches missed.">		if(listSize &gt;0){</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">		if(listSize == 1){</span>
+			//TO_CHAR(m.release_date, 'YYYY-MM-DD')
+<span class="nc" id="L124">			 sql=&quot;select distinct m.movieid,m.moviename,m.belongs_to_collection,m.genres,m.original_language,m.overview,m.poster_path,m.popularity,m.productionID, DATE_FORMAT(m.release_date, \&quot;%d-%m-%Y\&quot;) as release_date,m.runtime,m.vote_average,m.vote_count from prophet2018spring.Movie m, prophet2018spring.Search s  where s.userid=&quot;+userid+&quot; and  searchword is not null and lower(moviename) like '%&quot;+searchWords.get(0).toLowerCase()+&quot;%' order by rand()&quot;;</span>
+		}else{
+<span class="nc" id="L126">		 sql = &quot;select distinct m.movieid,m.moviename,m.belongs_to_collection,m.genres,m.original_language,m.overview,m.poster_path,m.popularity,m.productionID, DATE_FORMAT(m.release_date, \&quot;%d-%m-%Y\&quot;) as release_date,m.runtime,m.vote_average,m.vote_count from prophet2018spring.Movie m, prophet2018spring.Search s  where s.userid=&quot;+userid+&quot; and  searchword is not null and &quot;;</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">		for(int i=0;i&lt;searchWords.size()-1;i++){</span>
+<span class="nc" id="L128">			sql+=&quot; lower(moviename) like '%&quot;+searchWords.get(i).toLowerCase()+&quot;%' or &quot;;</span>
+		}
+<span class="nc" id="L130">		System.out.println(sql);</span>
+<span class="nc" id="L131">		sql+=&quot;lower(moviename) like '%&quot;+searchWords.get(searchWords.size()-1).toLowerCase()+&quot;%' order by rand() &quot;;</span>
+		}
+		
+<span class="nc" id="L134">		Session session = sessionFactory.openSession();</span>
+<span class="nc" id="L135">	    SQLQuery query = session.createSQLQuery(sql);</span>
+<span class="nc" id="L136">	     query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L137">	     movieRecommended = query.setMaxResults(6).list();</span>
+<span class="nc" id="L138">	     session.close();</span>
+		}
+		else{
+			/*Session session = sessionFactory.openSession();
+			String sql=&quot;select distinct  m.movieid,m.moviename,m.genres,m.overview,m.belongs_to_collection,m.original_language,m.popularity,m.poster_path,m.productionID,m.release_date,m.runtime,m.vote_average,m.vote_count from Movie m where  m.runtime &lt;&gt; 0 and m.runtime &lt; 10 order by rand()&quot;;
+			SQLQuery query = session.createSQLQuery(sql);
+			movieRecommended = query.setMaxResults(6).list();
+			  session.close();*/
+		}
+		
+<span class="nc" id="L148">		return movieRecommended;</span>
+	}
+	
+	@Override
+	public List&lt;Integer&gt; getMovieId(int userid, String type) {
+		// TODO Auto-generated method stub
+		
+<span class="nc" id="L155">		List&lt;Integer&gt; movieIDs = new ArrayList&lt;Integer&gt;();</span>
+<span class="nc" id="L156">		Session session = sessionFactory.openSession();</span>
+	//	searchWord = session.createQuery(&quot;From com.crud.rest.beans.Search where userid=&quot;+userid+&quot; order by time desc&quot;).list();
+		
+<span class="nc" id="L159">		String sql = &quot;select movieid from prophet2018spring.UserFavList  where userid= :userid and type = :type&quot;;</span>
+<span class="nc" id="L160">	     SQLQuery query = session.createSQLQuery(sql);</span>
+<span class="nc" id="L161">	     query.setParameter(&quot;userid&quot;, userid);</span>
+<span class="nc" id="L162">	     query.setParameter(&quot;type&quot;, type);</span>
+<span class="nc" id="L163">	     movieIDs = query.setMaxResults(6).list();</span>
+<span class="nc" id="L164">	     session.close();</span>
+<span class="nc" id="L165">		return movieIDs;</span>
+	
+	}
+
+	@Override
+	public List&lt;Movie&gt; recommendedBasedonUserFavorite(int userid) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L172">		List&lt;Movie&gt; movieRecommended = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc" id="L173">		List&lt;String&gt; listofGenre = new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L174">		String type =&quot;F&quot;;</span>
+<span class="nc" id="L175">		List&lt;Integer&gt; movieidList = getMovieId(userid, type);</span>
+<span class="nc" id="L176">		int listSize=movieidList.size();</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">		if(listSize &gt;0){</span>
+<span class="nc" id="L178">		String sql1=&quot;Select distinct m.genres from prophet2018spring.Movie m,prophet2018spring.UserFavList u  where u.userid=&quot;+userid+&quot; and &quot;;</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">		for(int i=0;i&lt;movieidList.size()-1;i++){</span>
+<span class="nc" id="L180">			sql1+=&quot; m.movieid = &quot;+movieidList.get(i)+&quot; or &quot;;</span>
+		}
+<span class="nc" id="L182">		sql1+=&quot;m.movieid = &quot;+movieidList.get(listSize-1)+&quot;&quot;;</span>
+<span class="nc" id="L183">		System.out.println(sql1);</span>
+<span class="nc" id="L184">		Session session = sessionFactory.openSession();</span>
+<span class="nc" id="L185">	    SQLQuery query = session.createSQLQuery(sql1);</span>
+<span class="nc" id="L186">	    listofGenre = query.list();</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">	   for(String s: listofGenre){</span>
+<span class="nc" id="L188">		   System.out.print(s+&quot;\t\t&quot;);</span>
+<span class="nc" id="L189">	   }</span>
+			
+<span class="nc" id="L191">		String sql = &quot;select distinct m.movieid,m.moviename,m.belongs_to_collection,m.genres,m.original_language,m.popularity,m.overview,m.poster_path,m.productionID, DATE_FORMAT(m.release_date, \&quot;%d-%m-%Y\&quot;) as release_date ,m.runtime,m.vote_average,m.vote_count from prophet2018spring.Movie m  where  &quot;;</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">		for(int i=0;i&lt;listofGenre.size()-1;i++){</span>
+<span class="nc" id="L193">			sql+=&quot; m.genres like '%&quot;+listofGenre.get(i)+&quot;%' or &quot;;</span>
+		}
+<span class="nc" id="L195">		sql+=&quot;m.genres like '%&quot;+listofGenre.get(listofGenre.size()-1)+&quot;%' order by rand() &quot;;</span>
+<span class="nc" id="L196">		System.out.println(sql);</span>
+<span class="nc" id="L197">		Session session1 = sessionFactory.openSession();</span>
+<span class="nc" id="L198">	    SQLQuery query1 = session.createSQLQuery(sql);</span>
+<span class="nc" id="L199">	     query1.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L200">	     movieRecommended = query1.setMaxResults(6).list();</span>
+	     
+<span class="nc" id="L202">	     System.out.println(Arrays.asList(movieRecommended.toArray()));</span>
+<span class="nc" id="L203">	     session.close();</span>
+		}
+		else{
+		/*	Session session = sessionFactory.openSession();
+			String sql=&quot;select distinct  m.movieid,m.moviename,m.genres,m.overview,m.belongs_to_collection,m.original_language,m.popularity,m.poster_path,m.productionID,m.release_date,m.runtime,m.vote_average,m.vote_count from Movie m where m.productionid is not null order by rand()&quot;;
+			SQLQuery query = session.createSQLQuery(sql);
+			movieRecommended = query.setMaxResults(6).list();
+			  session.close();*/
+		}
+<span class="nc" id="L212">		return movieRecommended;</span>
+	}
+
+	@Override
+	public List&lt;Movie&gt; recommendedBasedonUserWatched(int userid) {
+<span class="nc" id="L217">		List&lt;Movie&gt; movieRecommended = new ArrayList&lt;Movie&gt;();</span>
+		
+		// TODO Auto-generated method stub
+		//List&lt;Movie&gt; movieRecommended = new ArrayList&lt;Movie&gt;();
+<span class="nc" id="L221">		List&lt;String&gt; productions= new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L222">		String type =&quot;W&quot;;</span>
+<span class="nc" id="L223">		List&lt;Integer&gt; movieidList = getMovieId(userid, type);</span>
+<span class="nc" id="L224">		int listSize=movieidList.size();</span>
+<span class="nc bnc" id="L225" title="All 2 branches missed.">		if(listSize &gt;0){</span>
+<span class="nc" id="L226">			String sql1=&quot;Select distinct m.productionid from prophet2018spring.Movie m, prophet2018spring.UserFavList u  where u.userid=&quot;+userid+&quot; and &quot;;</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">			for(int i=0;i&lt;movieidList.size()-1;i++){</span>
+<span class="nc" id="L228">				sql1+=&quot; m.movieid = &quot;+movieidList.get(i)+&quot; or &quot;;</span>
+			}
+<span class="nc" id="L230">			sql1+=&quot;m.movieid = &quot;+movieidList.get(listSize-1)+&quot;&quot;;</span>
+<span class="nc" id="L231">			System.out.println(sql1);</span>
+<span class="nc" id="L232">			Session session = sessionFactory.openSession();</span>
+<span class="nc" id="L233">		    SQLQuery query = session.createSQLQuery(sql1);</span>
+<span class="nc" id="L234">		    productions = query.list();</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">		   for(String s: productions){</span>
+<span class="nc" id="L236">			   System.out.print(s+&quot;\t\t&quot;);</span>
+<span class="nc" id="L237">		   }</span>
+				
+<span class="nc" id="L239">			String sql = &quot;select distinct m.movieid,m.moviename,m.belongs_to_collection,m.genres,m.original_language,m.overview,m.poster_path,m.productionID,m.popularity, DATE_FORMAT(m.release_date, \&quot;%d-%m-%Y\&quot;) as release_date ,m.runtime,m.vote_average,m.vote_count from prophet2018spring.Movie m  where  &quot;;</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">			for(int i=0;i&lt;productions.size()-1;i++){</span>
+<span class="nc" id="L241">				sql+=&quot; m.productionid like '%&quot;+productions.get(i)+&quot;%' or &quot;;</span>
+			}
+<span class="nc" id="L243">			sql+=&quot;m.productionid like '%&quot;+productions.get(productions.size()-1)+&quot;%' order by rand() &quot;;</span>
+<span class="nc" id="L244">			System.out.println(sql);</span>
+<span class="nc" id="L245">			Session session1 = sessionFactory.openSession();</span>
+<span class="nc" id="L246">		    SQLQuery query1 = session.createSQLQuery(sql);</span>
+<span class="nc" id="L247">		     query1.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L248">		     movieRecommended = query1.setMaxResults(6).list();</span>
+		     
+<span class="nc" id="L250">		     System.out.println(Arrays.asList(movieRecommended.toArray()));</span>
+<span class="nc" id="L251">		     session.close();</span>
+			}
+			else{
+			/*	Session session = sessionFactory.openSession();
+				String sql=  &quot;select distinct m.movieid,m.moviename,m.belongs_to_collection,m.genres,m.original_language,m.overview,m.popularity,m.poster_path,m.productionID, DATE_FORMAT(m.release_date, \&quot;%d-%m-%Y\&quot;) as release_date ,m.runtime,m.vote_average,m.vote_count from Movie m  where belongs_to_collection &lt;&gt;0 order by rand()&quot;;
+				SQLQuery query = session.createSQLQuery(sql);
+				
+				movieRecommended = query.setMaxResults(6).list();
+				  session.close();*/
+			
+			}
+<span class="nc" id="L262">			return movieRecommended;</span>
+		
+	//	return movieRecommended;
+	}
+	
+	
+
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

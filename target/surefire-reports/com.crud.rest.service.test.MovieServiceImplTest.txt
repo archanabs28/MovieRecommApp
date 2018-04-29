@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.crud.rest.service.test.MovieServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.543 sec

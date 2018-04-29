@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserFavListDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Parent</a> &gt; <a href="index.source.html" class="el_package">com.crud.rest.dao</a> &gt; <span class="el_source">UserFavListDaoImpl.java</span></div><h1>UserFavListDaoImpl.java</h1><pre class="source lang-java linenums">package com.crud.rest.dao;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.crud.rest.beans.Movie;
+import com.crud.rest.beans.Rating;
+import com.crud.rest.beans.UserFavList;
+
+/**
+ * @author Archana
+ *
+ */
+<span class="nc" id="L22">public class UserFavListDaoImpl implements UserFavListDao{</span>
+
+	
+	@Autowired
+	private SessionFactory usersessionFactory;
+
+	//setter for sessionFactory
+	public void setsessionFactory(SessionFactory usersessionFactory) {
+<span class="nc" id="L30">		this.usersessionFactory = usersessionFactory;</span>
+<span class="nc" id="L31">	}</span>
+	
+
+	
+	@Override
+	public List&lt;Movie&gt; getFavList(int userid) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L38">		List&lt;Movie&gt; userFavList = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc" id="L39">		Session session = usersessionFactory.openSession();</span>
+		//userFavList = session.createQuery(&quot;From com.crud.rest.beans.UserFavList where type='F' and userid=&quot;+userid+&quot;&quot;).list();
+		
+<span class="nc" id="L42">		String sql = &quot;select  m.movieid,m.moviename,m.genres,m.overview,m.belongs_to_collection,m.original_language,m.popularity,m.poster_path,m.productionID,m.release_date,m.runtime,m.vote_average,m.vote_count,u.userid,u.type from prophet2018spring.Movie m,prophet2018spring.UserFavList u where u.movieid=m.movieid and u.type = 'F' and u.userid= :userid&quot;;</span>
+<span class="nc" id="L43">	     SQLQuery query = session.createSQLQuery(sql);</span>
+<span class="nc" id="L44">	     query.setParameter(&quot;userid&quot;, userid);</span>
+<span class="nc" id="L45">	     query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L46">	     userFavList = query.list();</span>
+	    // return query.list();
+<span class="nc" id="L48">	     session.close();</span>
+<span class="nc" id="L49">		return userFavList;</span>
+	}
+
+	@Override
+	public List&lt;Movie&gt; getWatchedList(int userid) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L55">		List&lt;Movie&gt; userWatchedList = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc" id="L56">		Session session = usersessionFactory.openSession();</span>
+		//userFavList = session.createQuery(&quot;From com.crud.rest.beans.UserFavList where type='F' and userid=&quot;+userid+&quot;&quot;).list();
+		
+<span class="nc" id="L59">		String sql = &quot;select  m.movieid,m.moviename,m.genres,m.overview,m.belongs_to_collection,m.original_language,m.popularity,m.poster_path,m.productionID,m.release_date,m.runtime,m.vote_average,m.vote_count,u.userid,u.type from prophet2018spring.Movie m,prophet2018spring.UserFavList u where u.movieid=m.movieid and u.type = 'W' and u.userid= :userid&quot;;</span>
+<span class="nc" id="L60">	     SQLQuery query = session.createSQLQuery(sql);</span>
+<span class="nc" id="L61">	     query.setParameter(&quot;userid&quot;, userid);</span>
+<span class="nc" id="L62">	     query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L63">	     userWatchedList = query.list();</span>
+	    // return query.list();
+<span class="nc" id="L65">	     session.close();</span>
+<span class="nc" id="L66">		return userWatchedList;</span>
+	}
+
+	@Override
+	public void saveUserPreference(UserFavList favList) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L72">		Session session = usersessionFactory.openSession();</span>
+<span class="nc" id="L73">		Transaction transaction = session.beginTransaction();</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">		if (favList != null) {</span>
+			try {
+<span class="nc" id="L76">				session.save(favList);</span>
+<span class="nc" id="L77">				transaction.commit();</span>
+<span class="nc" id="L78">			} catch (Exception e) {</span>
+<span class="nc" id="L79">				transaction.rollback();</span>
+<span class="nc" id="L80">				session.close();</span>
+<span class="nc" id="L81">			}</span>
+
+		}
+<span class="nc" id="L84">	}</span>
+
+
+
+	@Override
+	public List&lt;UserFavList&gt; userPreferenceList(int userid) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L91">		List&lt;UserFavList&gt; userPreferenceList = new ArrayList&lt;UserFavList&gt;();</span>
+<span class="nc" id="L92">		Session session = usersessionFactory.openSession();</span>
+<span class="nc" id="L93">		String sql = &quot;select userid,'Favorites' type,count(movieid) as moviecount from prophet2018spring.UserFavList where type='F' and userid=&quot;+userid+&quot; group by userid,type  UNION select userid,'Watched' type,count(movieid) as moviecount from prophet2018spring.UserFavList where type='W' and userid=&quot;+userid+&quot; group by userid,type UNION select userid,'Rated'type,count(movieid) as moviecount from prophet2018spring.Rating where rating is not null and userid=&quot;+userid+&quot; group by userid,type order by userid,type&quot;;</span>
+<span class="nc" id="L94">	     SQLQuery query = session.createSQLQuery(sql);</span>
+<span class="nc" id="L95">	     query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L96">	     userPreferenceList = query.list();</span>
+<span class="nc" id="L97">	     session.close();</span>
+<span class="nc" id="L98">		return userPreferenceList;</span>
+	}
+
+
+
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

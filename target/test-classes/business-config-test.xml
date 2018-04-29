@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+ xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+ xsi:schemaLocation="  
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd  
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd  
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd  
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+ 
+ 
+ <import resource="classpath:/rest/src/main/resources/business-config.xml" />
+ <!-- <context:component-scan base-package="com.crud.rest.beanTest" />
+ <context:annotation-config />
+ 
+ <tx:annotation-driven />
+ 
+ <bean id="UserLoginDao" class="com.crud.rest.beanTest.UserLogin"/>
+
+Datasource
+<bean id="dataSource"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://35.196.103.217:3306/prophet2018spring"/>
+    <property name="username" value="archana"/>
+    <property name="password" value="archana"/>
+</bean>
+
+Session Factory
+<bean id="sessionFactory" 
+	class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+ class="org.springframework.orm.hibernate4.annotation.AnnotationSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    
+    <property name="hibernateProperties">
+        <props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				 <prop key="connection.autoReconnect">true</prop>
+    			<prop key="connection.autoReconnectForPools">true</prop>
+			</props>
+    </property>
+	<property name="annotatedClasses">
+        <list>
+            <value>com.crud.rest.beans.UserLogin</value>
+        </list>
+    </property>
+	</bean>
+
+<bean id="UserDao" class="com.crud.rest.daoTest.UserLoginDaoImplTest">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean> -->
+</beans>

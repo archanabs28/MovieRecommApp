@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app\account\account.spec.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">app/account/</a> account.spec.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>69/69</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>69/69</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">34×</span>
+<span class="cline-any cline-yes">170×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">describe('Account Section &gt;',function(){
+&nbsp;
+    var scope,$httpBackend,$http,mockcommonCount,mockBollywoodMoviesFactory,mockgetMoviesbyType,mocksessionService,mocklanguageTrend,testData;
+    beforeEach(angular.mock.module('ngBoilerplate'));
+&nbsp;
+    beforeEach(function () {
+        angular.mock.inject(function ($injector,$rootScope,$controller,_commonCount_,_BollywoodMoviesFactory_,_getMoviesbyType_,_sessionService_,_languageTrend_,_testData_){
+            $httpBackend=$injector.get('$httpBackend');
+            $http=$injector.get('$http');
+            scope=$rootScope.$new();
+            mockBollywoodMoviesFactory=_BollywoodMoviesFactory_;
+            mockgetMoviesbyType=_getMoviesbyType_;
+            mocksessionService=_sessionService_;
+            mocklanguageTrend=_languageTrend_;
+            mockcommonCount=_commonCount_;
+            testData=_testData_;
+            scope.$digest();
+        });
+    });
+&nbsp;
+    //Test 0
+    it('should init the controller and services', function () {
+        expect(mockBollywoodMoviesFactory).toBeTruthy();
+        expect(mockgetMoviesbyType).toBeTruthy();
+        expect(mocksessionService).toBeTruthy();
+        expect(mocklanguageTrend).toBeTruthy();
+        expect(mockcommonCount).toBeTruthy();
+        expect(testData).toBeTruthy();
+    });
+&nbsp;
+    //Test 1
+    it('should test getFav method of factory getMoviesbyType', function () {
+        scope.user = testData.user();
+        $httpBackend.expectGET(testData.getFav('url')+scope.user.userId).respond(testData.getFav('data'));
+        scope.movies = mockgetMoviesbyType.getFav(scope.user.userId).query();
+        $httpBackend.flush();
+        expect(scope.movies.length).toBe(testData.getFav('data').length);
+    });
+&nbsp;
+    //Test 2
+    it('should test getWat method of factory getMoviesbyType', function () {
+        scope.user = testData.user();
+        $httpBackend.expectGET(testData.getWat('url')+scope.user.userId).respond(testData.getWat('data'));
+        scope.movies = mockgetMoviesbyType.getWat(scope.user.userId).query();
+        $httpBackend.flush();
+        expect(scope.movies.length).toBeGreaterThan(5);
+    });
+&nbsp;
+    //Test 3
+    it('should test getRat method of factory getMoviesbyType', function () {
+        scope.user = testData.user();
+        $httpBackend.expectGET(testData.getRat('url')+scope.user.userId).respond(testData.getWat('data'));
+        scope.movies = mockgetMoviesbyType.getRat(scope.user.userId).query();
+        $httpBackend.flush();
+        expect(scope.movies.length).toBeGreaterThan(5);
+    });
+&nbsp;
+    //Test 4
+    it('should test BollywoodMoviesFactory with', function() {
+        $httpBackend.expectGET(testData.bollywoodMovies('url')).respond(testData.bollywoodMovies('data'));
+        var result = mockBollywoodMoviesFactory.query();
+        $httpBackend.flush();
+        expect(result.length).toBe(testData.bollywoodMovies('data').length);
+    });
+&nbsp;
+    //Test 5
+    it('should test factory mocklanguageTrend', function () {
+        scope.user = testData.user();
+        $httpBackend.expectGET(testData.graphData('language','url')).respond(testData.graphData('language','data'));
+        scope.languages = mocklanguageTrend.getData().query();
+        $httpBackend.flush();
+        expect(scope.languages.length).toBeGreaterThan(3);
+    });
+&nbsp;
+    //Test 6
+    it('should test factory mockcommonCount to return positive int values', function () {
+        scope.user = testData.user();
+        $httpBackend.expectGET(testData.graphData('userprefer','url')+scope.user.userId).respond(testData.graphData('userprefer','data'));
+        scope.graphData = mockcommonCount.getData().query();
+        $httpBackend.flush();
+        angular.forEach(scope.graphData,function (data) {
+            expect(data.moviecount).toBeGreaterThan(1);
+        });
+    });
+&nbsp;
+    //Test 7
+    it('should test if top trending languages exist in the list of languages', function () {
+        scope.user = testData.user();
+        $httpBackend.expectGET(testData.graphData('language','url')).respond(testData.graphData('language','data'));
+        scope.languages = mocklanguageTrend.getData().query();
+        $httpBackend.flush();
+        var isFound = false;
+        angular.forEach(testData.lang('all'),function (language) {
+            angular.forEach(scope.languages,function (lang) {
+               if(lang.original_language == language.code){
+                   isFound = true;
+               }
+            });
+        });
+        expect(isFound).toBeTruthy();
+    });
+});</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Apr 29 2018 12:53:22 GMT-0400 (Eastern Daylight Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

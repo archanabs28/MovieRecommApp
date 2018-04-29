@@ -1,0 +1,47 @@
+<div class="page-content">
+    <br><br><br>
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--3-offset-desktop">
+            <div class="login-card mdl-card mdl-shadow--2dp">
+                <br>
+                <span class="card-title">Login</span>
+                <form ng-submit="login()">
+                    <div class="mdl-grid">
+                        <!-- Email -->
+                        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset-desktop">
+                            <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                                <input class="mdl-textfield__input" ng-model="user.name" type="text" id="email">
+                                <label class="mdl-textfield__label" for="email">Email</label>
+                            </div>
+                        </div>
+                        <!-- Password -->
+                        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset-desktop">
+                            <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                                <input class="mdl-textfield__input" ng-model="user.password" type="password" id="password">
+                                <label class="mdl-textfield__label" for="password">Password</label>
+                            </div>
+                        </div>
+                        <!-- Remember -->
+                        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset-desktop">
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember_login">
+                                <input type="checkbox" id="remember_login" class="mdl-checkbox__input" checked>
+                                <span class="mdl-checkbox__label">Remember me</span>
+                            </label>
+                        </div>
+                        <!-- Submit -->
+                        <div class="mdl-cell mdl-cell--12-col" align="center">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">
+                                Submit
+                            </button>
+                        </div>
+                        <!-- Forgot -->
+                        <div class="mdl-cell mdl-cell--12-col" align="right">
+                            <a class="forgot_link" href="#">Forgot password?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+</div>

@@ -1,0 +1,62 @@
+<div class="page-content">
+    <br><br><br>
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--3-offset-desktop">
+            <div class="login-card mdl-card mdl-shadow--2dp">
+                <br>
+                <span class="card-title">Register</span>
+                <form ng-submit="register()" enctype="multipart/form-data">
+                    <div class="mdl-grid">
+                        <!-- Name -->
+                        <div class="mdl-cell mdl-cell--4-col mdl-cell--2-offset-desktop">
+                            <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                                <input class="mdl-textfield__input" ng-model="user.firstName" type="text" id="firstName">
+                                <label class="mdl-textfield__label" for="firstName">First Name</label>
+                            </div>
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col ">
+                            <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                                <input class="mdl-textfield__input" ng-model="user.lastName" type="text" id="lastName">
+                                <label class="mdl-textfield__label" for="lastName">Last Name</label>
+                            </div>
+                        </div>
+                        <!-- Email -->
+                        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset-desktop">
+                            <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                                <input class="mdl-textfield__input" ng-model="user.emailId" type="text" id="emailId">
+                                <label class="mdl-textfield__label" for="emailId">Email</label>
+                            </div>
+                        </div>
+                        <!-- Password -->
+                        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset-desktop">
+                            <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                                <input class="mdl-textfield__input" ng-model="user.password" type="password" id="password">
+                                <label class="mdl-textfield__label" for="password">Password</label>
+                            </div>
+                        </div>
+                        <!-- Confirm Password -->
+                        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset-desktop">
+                            <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                                <input class="mdl-textfield__input" ng-model="user.confirm_password" type="password" id="confirm_password">
+                                <label class="mdl-textfield__label" for="confirm_password">Confirm Password</label>
+                            </div>
+                        </div>
+                        <!-- Submit -->
+                        <div class="mdl-cell mdl-cell--12-col" align="center">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">
+                                Register
+                            </button>
+                        </div>
+                        <!-- Forgot -->
+                        <div class="mdl-cell mdl-cell--12-col" align="right">
+                            <div class="forgot_link">
+                                Already have an account? <a href="#">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+</div>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="ngBoilerplate" ng-controller="AppCtrl">
+<head>
+  <title ng-bind="pageTitle"></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Personalized Movie Recommendation Portal">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- compiled CSS -->
+  <link rel="stylesheet" type="text/css" href="vendor/material-design-lite/material2.css" />
+  <link rel="stylesheet" type="text/css" href="assets/ngbp-0.3.2.css" />
+  <!-- compiled JavaScript -->
+  <script type="text/javascript" src="assets/ngbp-0.3.2.js"></script>
+  <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+  </style>
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-color--grey-100">
+  <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-800">
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout-title">Movie Recommendation Portal</span>
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+          <i class="material-icons" on-click="search($event,true)">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+            <input class="mdl-textfield__input" type="text" ng-model="search.data" id="search" ng-keyup="search($event,flase)">
+        </div>
+      </div>
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <a class="mdl-navigation__link mdl-color-text--grey-800" ui-sref="home">Home</a>
+        <a class="mdl-navigation__link mdl-color-text--grey-800" ng-show="isLoggedIn()" ui-sref="account">Account</a>
+        <a class="mdl-navigation__link mdl-color-text--grey-800" ng-show="isAdmin()" ui-sref="admin">Manage</a>
+        <a class="mdl-navigation__link mdl-color-text--grey-800" ng-show="isLoggedIn()" ng-click="logout()" ui-sref="home">Logout</a>
+        <a class="mdl-navigation__link mdl-color-text--grey-800" ng-hide="isLoggedIn()" ui-sref="register">Register</a>
+        <a class="mdl-navigation__link mdl-color-text--grey-800" ng-hide="isLoggedIn()" ui-sref="login">Login</a>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Movie Recommendation Portal</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="index.html">Home</a>
+      <a class="mdl-navigation__link" ui-sref="category">All Categories</a>
+      <a class="mdl-navigation__link" ng-show="isLoggedIn()" ui-sref="recommended">Recommended</a>
+      <a class="mdl-navigation__link" ui-sref="category_language">Languages</a>
+      <a class="mdl-navigation__link" ui-sref="movies({genre: 'Action'})">Action</a>
+      <a class="mdl-navigation__link" ui-sref="movies({genre: 'Comedy'})">Comedy</a>
+      <a class="mdl-navigation__link" ui-sref="movies({genre: 'Documentary'})">Documentary</a>
+      <a class="mdl-navigation__link" ui-sref="movies({genre: 'Horror'})">Horror</a>
+      <a class="mdl-navigation__link" ui-sref="movies({genre: 'ScienceFiction'})">Science Fiction</a>
+      <hr>
+      <a class="mdl-navigation__link" ng-hide="isAdmin()" ng-show="isLoggedIn()" ui-sref="account">Account</a>
+      <a class="mdl-navigation__link" ng-show="isAdmin()" ui-sref="admin">Manage</a>
+      <a class="mdl-navigation__link" ng-show="isLoggedIn()" ng-click="logout()" ui-sref="home">Logout</a>
+      <a class="mdl-navigation__link" ng-hide="isLoggedIn()" ui-sref="register">Register</a>
+      <a class="mdl-navigation__link" ng-hide="isLoggedIn()" ui-sref="login">Login</a>
+      <br><br>
+    </nav>
+  </div>
+
+  <main class="mdl-layout__content">
+    <div class="container" ui-view="main"></div>
+
+      <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button type="button" class="mdl-snackbar__action" hidden></button>
+      </div>
+
+    <footer class="demo-footer mdl-mini-footer">
+      <div class="mdl-mini-footer--left-section">
+          <ul class="mdl-mini-footer--link-list">
+              <li><a href="#">Help</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Report a bug</a></li>
+              <li>&copy; Team 3</li>
+          </ul>
+      </div>
+    </footer>
+  </main>
+</div>
+<!-- build:include:e2e e2e.html -->
+<!-- /build -->
+</body>
+</html>

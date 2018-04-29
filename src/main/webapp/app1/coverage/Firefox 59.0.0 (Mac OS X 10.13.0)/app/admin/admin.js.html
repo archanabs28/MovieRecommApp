@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/admin/admin.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">app/admin/</a> admin.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.6% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/139</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.41% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/54</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.62% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/138</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module( 'ngBoilerplate.admin', ['ui.router','ngBoilerplate.auth','chart.js'])
+&nbsp;
+    .config(function config( $stateProvider ) {
+        $stateProvider.state( 'admin', {
+            url: '/admin',
+            views: {
+                "main": {
+                    controller: 'AdminCtrl',
+                    templateUrl: 'admin/admin.tpl.html'
+                }
+            },
+            data:{ pageTitle: 'Admin' }
+        });
+    })
+&nbsp;
+    .config(function config( $stateProvider ) {
+        $stateProvider.state( 'admin_movies', {
+            url: '/admin_movies',
+            views: {
+                "main": {
+                    controller: 'AdminMoviesCtrl',
+                    templateUrl: 'admin/movies.tpl.html'
+                }
+            },
+            data:{ pageTitle: 'Movies' }
+        });
+    })
+&nbsp;
+    .config(function config( $stateProvider ) {
+        $stateProvider.state( 'admin_users', {
+            url: '/admin_users',
+            views: {
+                "main": {
+                    controller: 'AdminUsersCtrl',
+                    templateUrl: 'admin/users.tpl.html'
+                }
+            },
+            data:{ pageTitle: 'Users' }
+        });
+    })
+&nbsp;
+    .config(function config( $stateProvider ) {
+        $stateProvider.state( 'user_stats', {
+            url: '/stats/user?id',
+            views: {
+                "main": {
+                    controller: 'UserStatsCtrl',
+                    templateUrl: 'admin/user-stats.tpl.html'
+                }
+            },
+            data:{ pageTitle: 'Movie Stats' }
+        });
+    })
+&nbsp;
+    .factory('updateUser', <span class="fstat-no" title="function not covered" >function($resource) {</span>
+<span class="cstat-no" title="statement not covered" >        var user = {};</span>
+<span class="cstat-no" title="statement not covered" >        user.update = <span class="fstat-no" title="function not covered" >function (account,success,failure) {</span></span>
+<span class="cstat-no" title="statement not covered" >            var Account = $resource('/user/'+account.userId,account,{'update': { method:'PUT' }});</span>
+<span class="cstat-no" title="statement not covered" >            Account.update({},account,success,failure);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        return user;</span>
+    })
+&nbsp;
+    .factory('movieService',<span class="fstat-no" title="function not covered" >function ($resource) {</span>
+<span class="cstat-no" title="statement not covered" >        var service = {};</span>
+<span class="cstat-no" title="statement not covered" >        service.add = <span class="fstat-no" title="function not covered" >function (movie,success,failure) {</span></span>
+<span class="cstat-no" title="statement not covered" >            var Movie = $resource('/movie/new');</span>
+<span class="cstat-no" title="statement not covered" >            Movie.save({},movie,success,failure);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        return service;</span>
+    })
+&nbsp;
+    .factory('getMovies', <span class="fstat-no" title="function not covered" >function ($resource) {</span>
+<span class="cstat-no" title="statement not covered" >        return $resource('/movies');</span>
+    })
+&nbsp;
+    .factory('getUsers', <span class="fstat-no" title="function not covered" >function ($resource) {</span>
+<span class="cstat-no" title="statement not covered" >        return $resource('/users');</span>
+    })
+&nbsp;
+    .factory('getUserData', <span class="fstat-no" title="function not covered" >function ($resource) {</span>
+<span class="cstat-no" title="statement not covered" >        var user = {};</span>
+<span class="cstat-no" title="statement not covered" >        user.user = <span class="fstat-no" title="function not covered" >function(id){</span></span>
+<span class="cstat-no" title="statement not covered" >            return $resource('/user/'+id);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        user.stats = <span class="fstat-no" title="function not covered" >function(id){</span></span>
+<span class="cstat-no" title="statement not covered" >            return $resource('/userstat/'+id);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        user.moviestats = <span class="fstat-no" title="function not covered" >function(id){</span></span>
+<span class="cstat-no" title="statement not covered" >            return $resource('/userprefer/'+id);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        user.moviesByYear = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return $resource('/moviesByYear');</span>
+        };
+<span class="cstat-no" title="statement not covered" >        user.trendingMovies = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return $resource('/trendingMovies');</span>
+        };
+<span class="cstat-no" title="statement not covered" >        user.topRatedMovies = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return $resource('/topRatedMovies');</span>
+        };
+<span class="cstat-no" title="statement not covered" >        return user;</span>
+    })
+&nbsp;
+    .factory('getUserDataById', <span class="fstat-no" title="function not covered" >function (getUserData) {</span>
+<span class="cstat-no" title="statement not covered" >        var user = {};</span>
+<span class="cstat-no" title="statement not covered" >        user.user = <span class="fstat-no" title="function not covered" >function(id){</span></span>
+<span class="cstat-no" title="statement not covered" >            return getUserData.user(id).query();</span>
+        };
+<span class="cstat-no" title="statement not covered" >        user.stats = <span class="fstat-no" title="function not covered" >function (id) {</span></span>
+<span class="cstat-no" title="statement not covered" >            return getUserData.stats(id).query();</span>
+        };
+<span class="cstat-no" title="statement not covered" >        user.moviestats = <span class="fstat-no" title="function not covered" >function (id) {</span></span>
+<span class="cstat-no" title="statement not covered" >            return getUserData.moviestats(id).query();</span>
+        };
+<span class="cstat-no" title="statement not covered" >        user.moviesByYear = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return getUserData.moviesByYear().query();</span>
+        };
+<span class="cstat-no" title="statement not covered" >        user.trendingMovies = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return getUserData.trendingMovies().query();</span>
+        };
+<span class="cstat-no" title="statement not covered" >        user.topRatedMovies = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            return getUserData.topRatedMovies().query();</span>
+        };
+<span class="cstat-no" title="statement not covered" >        return user;</span>
+    })
+&nbsp;
+&nbsp;
+&nbsp;
+    .controller('UserStatsCtrl', <span class="fstat-no" title="function not covered" >function AdminMovieStatsCtrl( $scope,getUserDataById,$stateParams ) {</span>
+<span class="cstat-no" title="statement not covered" >        $scope.common_pie_labels = [];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.common_pie_data = [];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.rating_bar_data=[];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.rating_bar_labels=[];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.rating_bar_options = {scales: {yAxes: [{ticks: {beginAtZero:true}}]}};</span>
+<span class="cstat-no" title="statement not covered" >        getUserDataById.user($stateParams.id).$promise.then(<span class="fstat-no" title="function not covered" >function onSuccess(recvDataA) {</span></span>
+<span class="cstat-no" title="statement not covered" >            angular.forEach(recvDataA,<span class="fstat-no" title="function not covered" >function (value) {</span></span>
+<span class="cstat-no" title="statement not covered" >                $scope.thisUser = value;</span>
+            });
+<span class="cstat-no" title="statement not covered" >            getUserDataById.stats($stateParams.id).$promise.then(<span class="fstat-no" title="function not covered" >function onSuccess(recvDataB) {</span></span>
+<span class="cstat-no" title="statement not covered" >                angular.forEach(recvDataB,<span class="fstat-no" title="function not covered" >function (value) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    $scope.rating_bar_data.push(value.rating);</span>
+<span class="cstat-no" title="statement not covered" >                    $scope.rating_bar_labels.push(value.moviename);</span>
+                });
+            });
+<span class="cstat-no" title="statement not covered" >            getUserDataById.moviestats($stateParams.id).$promise.then(<span class="fstat-no" title="function not covered" >function onSuccess(recvDataB) {</span></span>
+<span class="cstat-no" title="statement not covered" >                angular.forEach(recvDataB,<span class="fstat-no" title="function not covered" >function (value) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    $scope.common_pie_labels.push(value.type);</span>
+<span class="cstat-no" title="statement not covered" >                    $scope.common_pie_data.push(value.moviecount);</span>
+                });
+            });
+        });
+    })
+&nbsp;
+    .controller('AdminMoviesCtrl', <span class="fstat-no" title="function not covered" >function AdminMoviesCtrl( $scope,getMovies,$timeout,$state ) {</span>
+<span class="cstat-no" title="statement not covered" >        var movies = getMovies.query();</span>
+<span class="cstat-no" title="statement not covered" >        movies.$promise.then(<span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >            $scope.movies = data;</span>
+        });
+<span class="cstat-no" title="statement not covered" >        $scope.loadMore = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >            $state.reload();</span>
+        };
+    })
+&nbsp;
+    .controller('AdminUsersCtrl', <span class="fstat-no" title="function not covered" >function AdminUsersCtrl( $scope,getUsers,$state ) {</span>
+<span class="cstat-no" title="statement not covered" >        $scope.isLoaded = false;</span>
+<span class="cstat-no" title="statement not covered" >        var users = getUsers.query();</span>
+<span class="cstat-no" title="statement not covered" >        users.$promise.then(<span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >            $scope.users = data;</span>
+<span class="cstat-no" title="statement not covered" >            $scope.isLoaded = true;</span>
+        });
+<span class="cstat-no" title="statement not covered" >        $scope.loadMore = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >            $state.reload();</span>
+        };
+    })
+&nbsp;
+    .controller('AdminCtrl', <span class="fstat-no" title="function not covered" >function AdminCtrl( $scope,sessionService,updateUser,movieService,getUserDataById ) {</span>
+<span class="cstat-no" title="statement not covered" >        $scope.user = sessionService.getLoggedInUser();</span>
+&nbsp;
+        //Chart.js
+        //Movies bar chart
+<span class="cstat-no" title="statement not covered" >        $scope.movies_bar_series = ['Movies'];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.movies_bar_options = {scales: {yAxes: [{ticks: {beginAtZero:true}}]}};</span>
+<span class="cstat-no" title="statement not covered" >        $scope.movies_bar_labels=[];<span class="cstat-no" title="statement not covered" >$</span>scope.movies_bar_data=[];</span>
+&nbsp;
+        //Top trending movies chart
+<span class="cstat-no" title="statement not covered" >        $scope.trending_movies_line_labels = [];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.trending_movies_line_data = [];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.trending_movies_line_options = {scales: {yAxes: [{ticks: {beginAtZero:true}}]}};</span>
+&nbsp;
+        //Top rated movies chart
+<span class="cstat-no" title="statement not covered" >        $scope.rated_movie_line_labels = ["Dunkirk", "Avengers", "Oceans 12", "Bloodline", "Underworld", "Sholey", "John Wick"];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.rated_movie_line_data = [81, 40, 55, 90, 50, 59, 80];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.rated_movie_line_options = {scales: {yAxes: [{ticks: {beginAtZero:true}}]}};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        getUserDataById.moviesByYear().$promise.then(<span class="fstat-no" title="function not covered" >function onSuccess(recvDataA) {</span></span>
+<span class="cstat-no" title="statement not covered" >            angular.forEach(recvDataA,<span class="fstat-no" title="function not covered" >function (value) {</span></span>
+<span class="cstat-no" title="statement not covered" >                $scope.movies_bar_labels.push(value.movieYear);</span>
+<span class="cstat-no" title="statement not covered" >                $scope.movies_bar_data.push(value.moviescount);</span>
+            });
+<span class="cstat-no" title="statement not covered" >            getUserDataById.trendingMovies().$promise.then(<span class="fstat-no" title="function not covered" >function onSuccess(recvDataB) {</span></span>
+<span class="cstat-no" title="statement not covered" >                var i=0;</span>
+<span class="cstat-no" title="statement not covered" >                angular.forEach(recvDataB,<span class="fstat-no" title="function not covered" >function (value) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    if(i&lt;10){</span>
+<span class="cstat-no" title="statement not covered" >                        $scope.trending_movies_line_labels.push(value.moviename);</span>
+<span class="cstat-no" title="statement not covered" >                        $scope.trending_movies_line_data.push(value.usercount);</span>
+<span class="cstat-no" title="statement not covered" >                        $scope.trending_movies_line_data.reverse();</span>
+<span class="cstat-no" title="statement not covered" >                        i++;</span>
+                    }
+                });
+<span class="cstat-no" title="statement not covered" >                getUserDataById.topRatedMovies().$promise.then(<span class="fstat-no" title="function not covered" >function onSuccess(recvDataC) {</span></span>
+<span class="cstat-no" title="statement not covered" >                   i=0;</span>
+<span class="cstat-no" title="statement not covered" >                   angular.forEach(recvDataC,<span class="fstat-no" title="function not covered" >function (value) {</span></span>
+<span class="cstat-no" title="statement not covered" >                       if(i&lt;10){</span>
+<span class="cstat-no" title="statement not covered" >                           $scope.rated_movie_line_labels.push(value.moviename);</span>
+<span class="cstat-no" title="statement not covered" >                           $scope.rated_movie_line_data.push(value.userrating);</span>
+<span class="cstat-no" title="statement not covered" >                           $scope.rated_movie_line_labels.reverse();</span>
+<span class="cstat-no" title="statement not covered" >                           $scope.rated_movie_line_data.reverse();</span>
+<span class="cstat-no" title="statement not covered" >                           i++;</span>
+                       }
+                   });
+                });
+            });
+        });
+&nbsp;
+        //Open/Close modal
+<span class="cstat-no" title="statement not covered" >        $scope.openPasswordModal = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            document.querySelector('#password-dialog').showModal();</span>
+        };
+<span class="cstat-no" title="statement not covered" >        $scope.closePasswordModal = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            document.querySelector('#password-dialog').close();</span>
+        };
+<span class="cstat-no" title="statement not covered" >        $scope.openMovieModal = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            document.querySelector('#movie-dialog').showModal();</span>
+        };
+<span class="cstat-no" title="statement not covered" >        $scope.closeMovieModal = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            document.querySelector('#movie-dialog').close();</span>
+        };
+&nbsp;
+        //Update password
+<span class="cstat-no" title="statement not covered" >        $scope.updatePassword = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            var notification = document.querySelector('.mdl-js-snackbar');</span>
+<span class="cstat-no" title="statement not covered" >            if(angular.equals($scope.update.password,$scope.update.confirm_password)){</span>
+<span class="cstat-no" title="statement not covered" >                $scope.user.password = $scope.update.password;</span>
+<span class="cstat-no" title="statement not covered" >                updateUser.update($scope.user,</span>
+<span class="fstat-no" title="function not covered" >                    function (returnedData) {</span>
+<span class="cstat-no" title="statement not covered" >                        $scope.user = returnedData;</span>
+<span class="cstat-no" title="statement not covered" >                        document.querySelector('#password-dialog').close();</span>
+<span class="cstat-no" title="statement not covered" >                        notification.MaterialSnackbar.showSnackbar({message: 'Password changed!'});</span>
+                    },
+<span class="fstat-no" title="function not covered" >                    function(){</span>
+<span class="cstat-no" title="statement not covered" >                        notification.MaterialSnackbar.showSnackbar({message: 'Update failed!'});</span>
+                    });
+&nbsp;
+            }else{
+<span class="cstat-no" title="statement not covered" >                notification.MaterialSnackbar.showSnackbar({message: 'Passwords do no match!'});</span>
+            }
+        };
+&nbsp;
+        //Add a movie
+<span class="cstat-no" title="statement not covered" >        $scope.movie = {};</span>
+<span class="cstat-no" title="statement not covered" >        $scope.addMovie = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >            var btc = angular.isUndefined($scope.movie.belongs_to_collection)?0:$scope.movie.belongs_to_collection;</span>
+<span class="cstat-no" title="statement not covered" >            var pop = angular.isUndefined($scope.movie.popularity)?0:$scope.movie.popularity;</span>
+<span class="cstat-no" title="statement not covered" >            var pp = angular.isUndefined($scope.movie.poster_path)?0:$scope.movie.poster_path;</span>
+<span class="cstat-no" title="statement not covered" >            var pid = angular.isUndefined($scope.movie.productionID)?0:$scope.movie.productionID;</span>
+<span class="cstat-no" title="statement not covered" >            var votea = angular.isUndefined($scope.movie.vote_average)?0:$scope.movie.vote_average;</span>
+<span class="cstat-no" title="statement not covered" >            var votec = angular.isUndefined($scope.movie.vote_count)?0:$scope.movie.vote_count;</span>
+<span class="cstat-no" title="statement not covered" >            var run = angular.isUndefined($scope.movie.runtime)?0:$scope.movie.runtime;</span>
+<span class="cstat-no" title="statement not covered" >            var movieData = {</span>
+                belongs_to_collection: btc,
+                popularity: pop,
+                poster_path: pp,
+                productionID: pid,
+                runtime: run,
+                vote_average: votea,
+                vote_count: votec,
+                movieName: $scope.movie.movieName,
+                genre: $scope.movie.genre,
+                original_language: $scope.movie.original_language,
+                overview: $scope.movie.overview,
+                release_date: $scope.movie.release_date
+            };
+<span class="cstat-no" title="statement not covered" >            var notification = document.querySelector('.mdl-js-snackbar');</span>
+<span class="cstat-no" title="statement not covered" >            movieService.add(movieData,</span>
+<span class="fstat-no" title="function not covered" >                function (returnedData) {</span>
+<span class="cstat-no" title="statement not covered" >                    console.log(returnedData);</span>
+<span class="cstat-no" title="statement not covered" >                    notification.MaterialSnackbar.showSnackbar({message: 'Movie Added!'});</span>
+                },
+<span class="fstat-no" title="function not covered" >                function(){</span>
+<span class="cstat-no" title="statement not covered" >                    var notification = document.querySelector('.mdl-js-snackbar');</span>
+<span class="cstat-no" title="statement not covered" >                    notification.MaterialSnackbar.showSnackbar({message: 'Operation failed!'});</span>
+                });
+        };
+    })
+&nbsp;
+;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Apr 27 2018 17:19:43 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

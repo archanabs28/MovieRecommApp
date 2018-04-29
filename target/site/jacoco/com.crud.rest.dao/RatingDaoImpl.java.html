@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RatingDaoImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Parent</a> &gt; <a href="index.source.html" class="el_package">com.crud.rest.dao</a> &gt; <span class="el_source">RatingDaoImpl.java</span></div><h1>RatingDaoImpl.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package com.crud.rest.dao;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.crud.rest.beans.Movie;
+import com.crud.rest.beans.Rating;
+import com.crud.rest.beans.UserFavList;
+
+/**
+ * @author Archana
+ *
+ */
+<span class="nc" id="L26">public class RatingDaoImpl implements RatingDao {</span>
+
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	//setter for sessionFactory
+	public void setsessionFactory(SessionFactory sessionFactory) {
+<span class="nc" id="L34">		this.sessionFactory = sessionFactory;</span>
+<span class="nc" id="L35">	}</span>
+	
+	
+	@Override
+	public List&lt;Movie&gt; findRatingByUserid(int userid) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L41">		List&lt;Movie&gt; userRatedMovie = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc" id="L42">		Session session = sessionFactory.openSession();</span>
+		//userFavList = session.createQuery(&quot;From com.crud.rest.beans.UserFavList where type='F' and userid=&quot;+userid+&quot;&quot;).list();
+		
+<span class="nc" id="L45">		String sql = &quot;select distinct  m.movieid,m.moviename,m.genres,m.overview,m.belongs_to_collection,m.original_language,m.popularity,m.poster_path,m.productionID,m.release_date,m.runtime,m.vote_average,m.vote_count,r.rating from Movie m,Rating r where m.movieid=r.movieid and r.userid=:userid&quot;;</span>
+<span class="nc" id="L46">	     SQLQuery query = session.createSQLQuery(sql);</span>
+<span class="nc" id="L47">	     query.setParameter(&quot;userid&quot;, userid);</span>
+<span class="nc" id="L48">	     query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L49">	     userRatedMovie = query.list();</span>
+<span class="nc" id="L50">	     session.close();</span>
+<span class="nc" id="L51">	 	return userRatedMovie;</span>
+	}
+
+		
+	@Override
+	public void saveRating(Rating rating) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L58">		Session session = sessionFactory.openSession();</span>
+<span class="nc" id="L59">		Transaction transaction = session.beginTransaction();</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">		if (rating != null) {</span>
+			try {
+<span class="nc" id="L62">				System.out.println(rating.getUserid()+&quot;\t&quot;+rating.getRating()+&quot;\t&quot;+rating.getMovieid());</span>
+<span class="nc" id="L63">				session.save(rating);</span>
+<span class="nc" id="L64">				transaction.commit();</span>
+<span class="nc" id="L65">			} catch (Exception e) {</span>
+<span class="nc" id="L66">				transaction.rollback();</span>
+<span class="nc" id="L67">				session.close();</span>
+			}
+
+		}
+<span class="nc" id="L71">	}</span>
+
+	
+	@Override
+	public void updateRating(Rating rating) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L77">		Session session = sessionFactory.openSession();</span>
+<span class="nc" id="L78">		Transaction transaction = session.beginTransaction();</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">		if (rating != null) {</span>
+			try {
+<span class="nc" id="L81">				session.update(rating);</span>
+<span class="nc" id="L82">				transaction.commit();</span>
+<span class="nc" id="L83">			} catch (Exception e) {</span>
+<span class="nc" id="L84">				transaction.rollback();</span>
+<span class="nc" id="L85">				session.close();</span>
+			}
+
+		}
+<span class="nc" id="L89">	}</span>
+
+	@Override
+	public List&lt;Movie&gt; topRatedMovies() {
+		// TODO Auto-generated method stub
+<span class="nc" id="L94">		List&lt;Movie&gt; topRatedMovies = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc" id="L95">		Session session = sessionFactory.openSession();</span>
+		//userFavList = session.createQuery(&quot;From com.crud.rest.beans.UserFavList where type='F' and userid=&quot;+userid+&quot;&quot;).list();
+		
+<span class="nc" id="L98">		String sql = &quot;select distinct  m.movieid,m.moviename,m.genres,m.overview,m.belongs_to_collection,m.original_language,m.popularity,m.poster_path,m.productionID,m.release_date,m.runtime,m.vote_average,m.vote_count,ROUND(avg(r.rating),2) as AvgRating from prophet2018spring.Movie m,prophet2018spring.Rating r where m.movieid=r.movieid group by  m.movieid,m.moviename,m.genres,m.overview,m.belongs_to_collection,m.original_language,m.popularity,m.poster_path,m.productionID,m.release_date,m.runtime,m.vote_average,m.vote_count order by AvgRating desc&quot;;</span>
+<span class="nc" id="L99">	     SQLQuery query = session.createSQLQuery(sql);</span>
+	     
+<span class="nc" id="L101">	     query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L102">	     topRatedMovies = query.setMaxResults(6).list();</span>
+<span class="nc" id="L103">	     session.close();</span>
+<span class="nc" id="L104">	 	return topRatedMovies;</span>
+	}
+
+	@Override
+	public Rating getRatingData(Rating rating){
+<span class="nc" id="L109">		Session session = sessionFactory.openSession();</span>
+<span class="nc" id="L110">		Transaction transaction = session.beginTransaction();</span>
+<span class="nc" id="L111">		Rating data = new Rating();</span>
+<span class="nc" id="L112">		String hql = &quot;from com.crud.rest.beans.Rating where userid=:userid and movieid=:movieid and rating = :rating&quot;;</span>
+		try {
+<span class="nc" id="L114">			Query query = session.createQuery(hql);</span>
+<span class="nc" id="L115">			query.setParameter(&quot;userid&quot;, rating.getUserid());</span>
+<span class="nc" id="L116">			query.setParameter(&quot;movieid&quot;, rating.getMovieid());</span>
+<span class="nc" id="L117">			query.setParameter(&quot;rating&quot;, rating.getRating());</span>
+<span class="nc" id="L118">			data = (Rating) query.uniqueResult();</span>
+<span class="nc" id="L119">			transaction.commit();</span>
+<span class="nc" id="L120">			session.close();</span>
+<span class="nc" id="L121">		} catch (Exception e) {</span>
+<span class="nc" id="L122">			transaction.rollback();</span>
+<span class="nc" id="L123">			session.close();</span>
+		}
+<span class="nc" id="L125">		return data;</span>
+	}
+	
+	@Override
+	public boolean isRatingExist(Rating rating) {
+		// TODO Auto-generated method stub
+<span class="nc bnc" id="L131" title="All 2 branches missed.">		return getRatingData(rating)!=null;</span>
+	}
+	
+/*	@Override
+	public List&lt;Movie&gt; cosineSimilarity(int userid)  {
+		// TODO Auto-generated method recommendationBasedonRatingstub
+		List&lt;Integer&gt; userids = new ArrayList&lt;Integer&gt;();
+		userids =listofUniqueUserid();
+		int numofUsers = userids.size();
+		
+		List&lt;Integer&gt; movieids = new ArrayList&lt;Integer&gt;();
+		movieids =listofUniqueMovieid();
+		int numofMovies = movieids.size();
+		
+		
+		Float[][] ratingMatrix = new Float[numofUsers][numofMovies];
+		ratingMatrix = generateMatrix(userids,movieids);
+		for(int i=0;i&lt;numofUsers;i++){
+			for(int j=0;j&lt;numofMovies;j++){
+				System.out.print(ratingMatrix[i][j]+&quot;\t\t&quot;);
+			}
+			System.out.println();
+		}
+		
+		int userPosition = getUserPositioninMatrix(userid,userids);
+		double numerator=0,denominator1=0,denominator2=0,cosine=0;
+		List&lt;Double&gt; cosineValues=new ArrayList&lt;Double&gt;();
+		if(userPosition != -1){
+			for(int i =0;i&lt;userids.size();i++){
+				numerator=0;
+				denominator1=0;
+				denominator2=cosine=0;
+				for(int j = 0;j&lt;movieids.size();j++){
+					if((ratingMatrix[userPosition][j] !=0)&amp;&amp;(ratingMatrix[i][j]!=0)&amp;&amp;(userPosition!=i)){
+						
+						numerator = numerator + (ratingMatrix[userPosition][j] *ratingMatrix[i][j]);
+						//System.out.println(ratingMatrix[userPosition][j] +&quot;\t\t&quot;+ratingMatrix[i][j]);
+					}
+					denominator1=denominator1+(ratingMatrix[userPosition][j]*ratingMatrix[userPosition][j]);
+					denominator2=denominator2+(ratingMatrix[i][j]*ratingMatrix[i][j]);
+				}
+				cosine = (numerator / (Math.sqrt(denominator1)*Math.sqrt(denominator2)));
+				System.out.println(cosine);
+				cosineValues.add(cosine);
+			}
+			
+		}
+		double max=0;
+		int cosinePosition=-1;
+		for(int k=0;k&lt;cosineValues.size();k++){
+			if(cosineValues.get(k)&gt;max){
+				max=cosineValues.get(k);
+				cosinePosition=k;
+			}
+		}
+		
+		System.out.println(cosinePosition);
+		List&lt;Movie&gt; recommendedMovies = new ArrayList&lt;Movie&gt;();
+		if(cosinePosition != -1){
+		recommendedMovies = getRecommendedMovies(cosinePosition,userid,userids);
+		}
+		double secondLargest=0;
+		if(recommendedMovies.isEmpty()){
+			System.out.println(&quot;Max values--&gt;&quot;+max);
+			cosinePosition=-1;
+			for(int k=0;k&lt;cosineValues.size();k++){
+				if(cosineValues.get(k)&gt;max){
+					secondLargest=max;
+					max=cosineValues.get(k);
+					
+				}
+				if(cosineValues.get(k) &gt; secondLargest &amp;&amp; cosineValues.get(k) != max) {
+				    secondLargest = cosineValues.get(k);
+				    cosinePosition=k;
+				  }
+				
+			}
+			System.out.println(&quot;Second largest value --&gt;&quot;+secondLargest+&quot;\t Cosine Position ---&gt;&quot;+cosinePosition);
+			if(cosinePosition != -1){
+				recommendedMovies = getRecommendedMovies(cosinePosition,userid,userids);
+				}
+			
+		}
+		
+		
+		return recommendedMovies;
+	}
+
+	@Override
+	public List&lt;Integer&gt; listofUniqueUserid() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		List&lt;Integer&gt; userids=new ArrayList&lt;Integer&gt;();
+		String sql = &quot;select distinct userid from Rating order by userid&quot;;
+		try {
+			Query query = session.createSQLQuery(sql);
+			userids= query.list();
+			session.close();
+			  
+			
+		} catch (Exception e) {
+			session.close();
+		}
+		return userids;
+	}
+
+
+	@Override
+	public List&lt;Integer&gt; listofUniqueMovieid() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		List&lt;Integer&gt; movieids=new ArrayList&lt;Integer&gt;();
+		String sql = &quot;select distinct Movieid from prophet2018spring.Rating order by Movieid&quot;;
+		try {
+			Query query = session.createSQLQuery(sql);
+			movieids= query.list();
+			
+			session.close();
+			
+		} catch (Exception e) {
+			session.close();
+		}
+		return movieids;
+	}
+
+
+	
+	@Override
+	public Float[][] generateMatrix(List&lt;Integer&gt; users, List&lt;Integer&gt; Movies) {
+		// TODO Auto-generated method stub
+		Float[][] matrix = new Float[users.size()][Movies.size()];
+		
+		for(int i=0;i&lt;users.size();i++ ){
+			
+			for(int j =0;j&lt;Movies.size();j++){
+				Session session = sessionFactory.openSession();
+				String sql = &quot;select rating from Rating where userid =&quot;+users.get(i)+&quot; and movieid =&quot;+Movies.get(j);
+				Query query = session.createQuery(sql);
+				if(query.uniqueResult() != null){
+				matrix[i][j]= (Float) query.uniqueResult();
+				}else{
+					matrix[i][j] = (float) 0.0;
+				}
+				session.close();
+			}
+		}
+		
+		return matrix;
+	}
+
+
+	
+	@Override
+	public int getUserPositioninMatrix(int userid, List&lt;Integer&gt; userids) {
+		// TODO Auto-generated method stub
+		int pos =-1;
+		
+		for(int i=0;i&lt;userids.size();i++){
+			System.out.println(userids.get(i));
+			if(userid == userids.get(i)){
+				pos = i;
+			}
+		}
+		System.out.println(&quot;User position in list--&gt;&quot;+pos);
+		return pos;
+	}
+
+
+	@Override
+	public List&lt;Movie&gt; getRecommendedMovies(int cosinePosition,int id,List&lt;Integer&gt; userids) {
+		// TODO Auto-generated method stub
+		List&lt;Movie&gt; recommendedMovie = new ArrayList&lt;Movie&gt;();
+		Integer userid = userids.get(cosinePosition);
+		Session session = sessionFactory.openSession();
+		//userFavList = session.createQuery(&quot;From com.crud.rest.beans.UserFavList where type='F' and userid=&quot;+userid+&quot;&quot;).list();
+		List&lt;Integer&gt; movies = new ArrayList&lt;Integer&gt;();
+		String sql = &quot; select Movieid from prophet2018spring.Rating where userid = &quot;+userid+&quot; and movieid NOT IN(select Movieid from prophet2018spring.Rating where userid = &quot;+id+&quot;)&quot;;
+		SQLQuery query = session.createSQLQuery(sql);
+		
+		movies = query.list();
+		System.out.println(movies.size());
+		
+		if(movies.size()&gt;0){
+		String sql1 = &quot;select  m.movieid,m.moviename,m.genres,m.overview,m.belongs_to_collection,m.original_language,m.popularity,m.poster_path,m.productionID,m.release_date,m.runtime,m.vote_average,m.vote_count from prophet2018spring.Movie m where m.movieid = &quot;;
+		for(int i =0;i&lt;movies.size()-1;i++){
+			sql1 += movies.get(i)+&quot; or movieid = &quot;;
+		}
+		sql1+= movies.get(movies.size()-1);
+		//Session session1 = sessionFactory.openSession();
+	     SQLQuery query1 = session.createSQLQuery(sql1);
+	   
+	     query1.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+	     recommendedMovie = query1.list();
+	     
+		}
+		session.close();
+		return recommendedMovie;
+	}
+*/
+
+	@Override
+	public List&lt;Rating&gt; numberofUsersRatedMovie(int movieid) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L334">		List&lt;Rating&gt; userRatedMovie = new ArrayList&lt;Rating&gt;();</span>
+<span class="nc" id="L335">		Session session = sessionFactory.openSession();</span>
+		//userFavList = session.createQuery(&quot;From com.crud.rest.beans.UserFavList where type='F' and userid=&quot;+userid+&quot;&quot;).list();
+		
+<span class="nc" id="L338">		String sql = &quot;select distinct count(userid) , rating,movieid from prophet2018spring.Rating where movieid=&quot;+movieid+&quot; group by rating order by Rating&quot;;</span>
+<span class="nc" id="L339">	     SQLQuery query = session.createSQLQuery(sql);</span>
+	     
+<span class="nc" id="L341">	     query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L342">	     userRatedMovie = query.setMaxResults(6).list();</span>
+<span class="nc" id="L343">	     session.close();</span>
+		
+<span class="nc" id="L345">		return userRatedMovie;</span>
+	}
+
+
+	@Override
+	public List&lt;Movie&gt; numberofMoviesUserRated(int userid) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L352">		List&lt;Movie&gt; movieUserRated = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc" id="L353">		Session session = sessionFactory.openSession();</span>
+		//userFavList = session.createQuery(&quot;From com.crud.rest.beans.UserFavList where type='F' and userid=&quot;+userid+&quot;&quot;).list();
+		
+<span class="nc" id="L356">		String sql = &quot;select distinct r.userid,m.moviename,r.rating from prophet2018spring.Rating r, prophet2018spring.Movie m where userid=&quot;+userid+&quot; and m.movieid= r.movieid order by rating&quot;;</span>
+<span class="nc" id="L357">	     SQLQuery query = session.createSQLQuery(sql);</span>
+	     
+<span class="nc" id="L359">	     query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L360">	     movieUserRated = query.setMaxResults(6).list();</span>
+<span class="nc" id="L361">	     session.close();</span>
+		
+<span class="nc" id="L363">		return movieUserRated;</span>
+	}
+
+
+	@Override
+	public List&lt;Movie&gt; trendingMovieByLanguage() {
+		// TODO Auto-generated method stub
+<span class="nc" id="L370">		List&lt;Movie&gt; trendingByLanguage = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc" id="L371">		Session session = sessionFactory.openSession();</span>
+		//userFavList = session.createQuery(&quot;From com.crud.rest.beans.UserFavList where type='F' and userid=&quot;+userid+&quot;&quot;).list();
+		
+<span class="nc" id="L374">		String sql = &quot;select count(r.userid) as usercount ,m.original_language from prophet2018spring.Rating r LEFT JOIN prophet2018spring.Movie m ON r.movieid=m.movieid group by m.original_language order by usercount desc&quot;;</span>
+<span class="nc" id="L375">	     SQLQuery query = session.createSQLQuery(sql);</span>
+	     
+<span class="nc" id="L377">	     query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L378">	     trendingByLanguage = query.list();</span>
+<span class="nc" id="L379">	     session.close();</span>
+		
+<span class="nc" id="L381">		return trendingByLanguage;</span>
+		
+	}
+
+	
+	@Override
+	public List&lt;Movie&gt; cosineSimilarity(int userid)   {
+		// TODO Auto-generated method recommendationBasedonRatingstub
+<span class="nc" id="L389">		List&lt;Integer&gt; userids = new ArrayList&lt;Integer&gt;();</span>
+		
+<span class="nc" id="L391">		Session session = sessionFactory.openSession();</span>
+<span class="nc" id="L392">		String sql = &quot;select distinct userid from Rating order by userid&quot;;</span>
+		try {
+<span class="nc" id="L394">			Query query = session.createSQLQuery(sql);</span>
+<span class="nc" id="L395">			userids= query.list();</span>
+<span class="nc" id="L396">			session.close();</span>
+			  
+			
+<span class="nc" id="L399">		} catch (Exception e) {</span>
+<span class="nc" id="L400">			session.close();</span>
+		}
+		
+<span class="nc" id="L403">		int numofUsers = userids.size();</span>
+		try {
+<span class="nc" id="L405">			Thread.sleep(1000);</span>
+<span class="nc" id="L406">		} catch (InterruptedException e1) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L408">			e1.printStackTrace();</span>
+		}
+<span class="nc" id="L410">		List&lt;Integer&gt; movieids = new ArrayList&lt;Integer&gt;();</span>
+		
+<span class="nc" id="L412">		Session session1 = sessionFactory.openSession();</span>
+<span class="nc" id="L413">		String sql1 = &quot;select distinct Movieid from prophet2018spring.Rating order by Movieid&quot;;</span>
+		try {
+<span class="nc" id="L415">			Query query = session1.createSQLQuery(sql1);</span>
+<span class="nc" id="L416">			movieids= query.list();</span>
+			
+<span class="nc" id="L418">			session1.close();</span>
+			
+<span class="nc" id="L420">		} catch (Exception e) {</span>
+<span class="nc" id="L421">			session1.close();</span>
+		}
+		
+<span class="nc" id="L424">		int numofMovies = movieids.size();</span>
+		
+		try {
+<span class="nc" id="L427">			Thread.sleep(1000);</span>
+<span class="nc" id="L428">		} catch (InterruptedException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L430">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L432">		Float[][] ratingMatrix = new Float[numofUsers][numofMovies];</span>
+<span class="nc bnc" id="L433" title="All 2 branches missed.">		for(int i=0;i&lt;numofUsers;i++ ){</span>
+			
+<span class="nc bnc" id="L435" title="All 2 branches missed.">			for(int j =0;j&lt;numofMovies;j++){</span>
+<span class="nc" id="L436">				Session session2 = sessionFactory.openSession();</span>
+<span class="nc" id="L437">				String sql2 = &quot;select rating from Rating where userid =&quot;+userids.get(i)+&quot; and movieid =&quot;+movieids.get(j);</span>
+<span class="nc" id="L438">				Query query = session2.createQuery(sql2);</span>
+<span class="nc bnc" id="L439" title="All 2 branches missed.">				if(query.uniqueResult() != null){</span>
+<span class="nc" id="L440">					ratingMatrix[i][j]= (Float) query.uniqueResult();</span>
+<span class="nc" id="L441">				}else{</span>
+<span class="nc" id="L442">					ratingMatrix[i][j] = (float) 0.0;</span>
+				}
+<span class="nc" id="L444">				session2.close();</span>
+			}
+		}
+		
+//		ratingMatrix = generateMatrix(userids,movieids);
+<span class="nc bnc" id="L449" title="All 2 branches missed.">		for(int i=0;i&lt;numofUsers;i++){</span>
+<span class="nc bnc" id="L450" title="All 2 branches missed.">			for(int j=0;j&lt;numofMovies;j++){</span>
+<span class="nc" id="L451">				System.out.print(ratingMatrix[i][j]+&quot;\t\t&quot;);</span>
+			}
+<span class="nc" id="L453">			System.out.println();</span>
+		}
+		try {
+<span class="nc" id="L456">			Thread.sleep(1000);</span>
+<span class="nc" id="L457">		} catch (InterruptedException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L459">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L461">		int userPosition  =-1;</span>
+		
+<span class="nc bnc" id="L463" title="All 2 branches missed.">		for(int i=0;i&lt;userids.size();i++){</span>
+<span class="nc" id="L464">			System.out.println(userids.get(i));</span>
+<span class="nc bnc" id="L465" title="All 2 branches missed.">			if(userid == userids.get(i)){</span>
+<span class="nc" id="L466">				userPosition = i;</span>
+			}
+		}
+<span class="nc" id="L469">		System.out.println(&quot;User position in list--&gt;&quot;+userPosition);</span>
+		
+		
+<span class="nc" id="L472">		double numerator=0,denominator1=0,denominator2=0,cosine=0;</span>
+<span class="nc" id="L473">		List&lt;Double&gt; cosineValues=new ArrayList&lt;Double&gt;();</span>
+<span class="nc bnc" id="L474" title="All 2 branches missed.">		if(userPosition != -1){</span>
+<span class="nc bnc" id="L475" title="All 2 branches missed.">			for(int i =0;i&lt;userids.size();i++){</span>
+<span class="nc" id="L476">				numerator=0;</span>
+<span class="nc" id="L477">				denominator1=0;</span>
+<span class="nc" id="L478">				denominator2=cosine=0;</span>
+<span class="nc bnc" id="L479" title="All 2 branches missed.">				for(int j = 0;j&lt;movieids.size();j++){</span>
+<span class="nc bnc" id="L480" title="All 6 branches missed.">					if((ratingMatrix[userPosition][j] !=0)&amp;&amp;(ratingMatrix[i][j]!=0)&amp;&amp;(userPosition!=i)){</span>
+						
+<span class="nc" id="L482">						numerator = numerator + (ratingMatrix[userPosition][j] *ratingMatrix[i][j]);</span>
+						
+					}
+<span class="nc" id="L485">					denominator1=denominator1+(ratingMatrix[userPosition][j]*ratingMatrix[userPosition][j]);</span>
+<span class="nc" id="L486">					denominator2=denominator2+(ratingMatrix[i][j]*ratingMatrix[i][j]);</span>
+				}
+<span class="nc" id="L488">				cosine = (numerator / (Math.sqrt(denominator1)*Math.sqrt(denominator2)));</span>
+<span class="nc" id="L489">				System.out.println(cosine);</span>
+<span class="nc" id="L490">				cosineValues.add(cosine);</span>
+			}
+			
+		}
+<span class="nc" id="L494">		double max=0;</span>
+<span class="nc" id="L495">		int cosinePosition=-1;</span>
+<span class="nc bnc" id="L496" title="All 2 branches missed.">		for(int k=0;k&lt;cosineValues.size();k++){</span>
+<span class="nc bnc" id="L497" title="All 2 branches missed.">			if(cosineValues.get(k)&gt;max){</span>
+<span class="nc" id="L498">				max=cosineValues.get(k);</span>
+<span class="nc" id="L499">				cosinePosition=k;</span>
+			}
+		}
+		
+<span class="nc" id="L503">		System.out.println(cosinePosition);</span>
+<span class="nc" id="L504">		List&lt;Movie&gt; recommendedMovies = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc bnc" id="L505" title="All 2 branches missed.">		if(cosinePosition != -1){</span>
+<span class="nc" id="L506">		recommendedMovies = getRecommendedMovies(cosinePosition,userid,userids);</span>
+		
+		
+		}
+<span class="nc" id="L510">		double secondLargest=0;</span>
+<span class="nc bnc" id="L511" title="All 2 branches missed.">		if(recommendedMovies.isEmpty()){</span>
+<span class="nc" id="L512">			System.out.println(&quot;Max values--&gt;&quot;+max);</span>
+<span class="nc" id="L513">			cosinePosition=-1;</span>
+<span class="nc bnc" id="L514" title="All 2 branches missed.">			for(int k=0;k&lt;cosineValues.size();k++){</span>
+<span class="nc bnc" id="L515" title="All 2 branches missed.">				if(cosineValues.get(k)&gt;max){</span>
+<span class="nc" id="L516">					secondLargest=max;</span>
+<span class="nc" id="L517">					max=cosineValues.get(k);</span>
+					
+				}
+<span class="nc bnc" id="L520" title="All 4 branches missed.">				if(cosineValues.get(k) &gt; secondLargest &amp;&amp; cosineValues.get(k) != max) {</span>
+<span class="nc" id="L521">				    secondLargest = cosineValues.get(k);</span>
+<span class="nc" id="L522">				    cosinePosition=k;</span>
+				  }
+				
+			}
+<span class="nc" id="L526">			System.out.println(&quot;Second largest value --&gt;&quot;+secondLargest+&quot;\t Cosine Position ---&gt;&quot;+cosinePosition);</span>
+<span class="nc bnc" id="L527" title="All 2 branches missed.">			if(cosinePosition != -1){</span>
+<span class="nc" id="L528">				recommendedMovies = getRecommendedMovies(cosinePosition,userid,userids);</span>
+				}
+			
+		}
+		
+		
+<span class="nc" id="L534">		return recommendedMovies;</span>
+	}
+
+	/*@Override
+	public List&lt;Integer&gt; listofUniqueUserid() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		List&lt;Integer&gt; userids=new ArrayList&lt;Integer&gt;();
+		String sql = &quot;select distinct userid from Rating order by userid&quot;;
+		try {
+			Query query = session.createSQLQuery(sql);
+			userids= query.list();
+			session.close();
+			  
+			
+		} catch (Exception e) {
+			session.close();
+		}
+		return userids;
+	}
+*/
+
+	/*@Override
+	public List&lt;Integer&gt; listofUniqueMovieid() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		List&lt;Integer&gt; movieids=new ArrayList&lt;Integer&gt;();
+		String sql = &quot;select distinct Movieid from prophet2018spring.Rating order by Movieid&quot;;
+		try {
+			Query query = session.createSQLQuery(sql);
+			movieids= query.list();
+			
+			session.close();
+			
+		} catch (Exception e) {
+			session.close();
+		}
+		return movieids;
+	}*/
+
+
+	/*
+	@Override
+	public Float[][] generateMatrix(List&lt;Integer&gt; users, List&lt;Integer&gt; Movies) {
+		// TODO Auto-generated method stub
+		Float[][] matrix = new Float[users.size()][Movies.size()];
+		
+		for(int i=0;i&lt;users.size();i++ ){
+			
+			for(int j =0;j&lt;Movies.size();j++){
+				Session session = sessionFactory.openSession();
+				String sql = &quot;select rating from Rating where userid =&quot;+users.get(i)+&quot; and movieid =&quot;+Movies.get(j);
+				Query query = session.createQuery(sql);
+				if(query.uniqueResult() != null){
+				matrix[i][j]= (Float) query.uniqueResult();
+				}else{
+					matrix[i][j] = (float) 0.0;
+				}
+				session.close();
+			}
+		}
+		
+		return matrix;
+	}*/
+
+
+	
+	/*@Override
+	public int getUserPositioninMatrix(int userid, List&lt;Integer&gt; userids) {
+		// TODO Auto-generated method stub
+		int pos =-1;
+		
+		for(int i=0;i&lt;userids.size();i++){
+			System.out.println(userids.get(i));
+			if(userid == userids.get(i)){
+				pos = i;
+			}
+		}
+		System.out.println(&quot;User position in list--&gt;&quot;+pos);
+		return pos;
+	}*/
+
+
+	@Override
+	public List&lt;Movie&gt; getRecommendedMovies(int cosinePosition,int id,List&lt;Integer&gt; userids) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L620">		List&lt;Movie&gt; recommendedMovie = new ArrayList&lt;Movie&gt;();</span>
+<span class="nc" id="L621">		Integer userid = userids.get(cosinePosition);</span>
+<span class="nc" id="L622">		Session session = sessionFactory.openSession();</span>
+		//userFavList = session.createQuery(&quot;From com.crud.rest.beans.UserFavList where type='F' and userid=&quot;+userid+&quot;&quot;).list();
+<span class="nc" id="L624">		List&lt;Integer&gt; movies = new ArrayList&lt;Integer&gt;();</span>
+<span class="nc" id="L625">		String sql = &quot; select Movieid from prophet2018spring.Rating where userid = &quot;+userid+&quot; and movieid NOT IN(select Movieid from prophet2018spring.Rating where userid = &quot;+id+&quot;)&quot;;</span>
+<span class="nc" id="L626">		SQLQuery query = session.createSQLQuery(sql);</span>
+		
+<span class="nc" id="L628">		movies = query.list();</span>
+<span class="nc" id="L629">		System.out.println(movies.size());</span>
+		
+<span class="nc bnc" id="L631" title="All 2 branches missed.">		if(movies.size()&gt;0){</span>
+<span class="nc" id="L632">		String sql1 = &quot;select  m.movieid,m.moviename,m.genres,m.overview,m.belongs_to_collection,m.original_language,m.popularity,m.poster_path,m.productionID,m.release_date,m.runtime,m.vote_average,m.vote_count from prophet2018spring.Movie m where m.movieid = &quot;;</span>
+<span class="nc bnc" id="L633" title="All 2 branches missed.">		for(int i =0;i&lt;movies.size()-1;i++){</span>
+<span class="nc" id="L634">			sql1 += movies.get(i)+&quot; or movieid = &quot;;</span>
+		}
+<span class="nc" id="L636">		sql1+= movies.get(movies.size()-1);</span>
+		//Session session1 = sessionFactory.openSession();
+<span class="nc" id="L638">	     SQLQuery query1 = session.createSQLQuery(sql1);</span>
+	   
+<span class="nc" id="L640">	     query1.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);</span>
+<span class="nc" id="L641">	     recommendedMovie = query1.list();</span>
+	     
+		}
+<span class="nc" id="L644">		session.close();</span>
+<span class="nc" id="L645">		return recommendedMovie;</span>
+	}
+
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

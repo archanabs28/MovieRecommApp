@@ -1,0 +1,93 @@
+<div class="page-content">
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+        <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+            <div class="mdl-grid mdl-grid--no-spacing">
+                <div class="mdl-cell mdl-cell--4-col-desktop" align="center">
+                    <div style="background: url('https://image.flaticon.com/icons/svg/306/306473.svg') center / cover; width:150px; height: 150px;"></div>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col-desktop">
+                    <br>
+                    <h4>{{user.firstName}} {{user.lastName}}</h4>
+                    <p>{{user.emailId}}</p>
+                </div>
+                <div class="mdl-cell mdl-cell--12-col-desktop">
+                    <h5>Stats</h5>
+                    <hr>
+                    <table width="100%" ng-if="common_pie_data!=''">
+                        <tr>
+                            <td align="center">
+                                <h6 align="center" style="">Rated, Watched and Favorites</h6>
+                                <canvas id="common_pie" class="chart chart-pie" chart-data="common_pie_data" chart-labels="common_pie_labels"></canvas>
+                            </td>
+                            <td align="center">
+                                <h6 align="center" style="">Trending Genre</h6>
+                                <canvas id="trending_movies_bar" class="chart chart-bar"chart-data="movies_bar_data" chart-options="movies_bar_options" chart-labels="movies_bar_labels" chart-series="movies_bar_series"></canvas>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="60%" align="center" ng-if="common_pie_data==''">
+                        <tr>
+                            <td align="center">
+                                <h6 align="center" style="">Trending Genre</h6>
+                                <canvas id="trending_movies_bar" class="chart chart-bar"chart-data="movies_bar_data" chart-options="movies_bar_options" chart-labels="movies_bar_labels" chart-series="movies_bar_series"></canvas>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mdl-cell mdl-cell--12-col-desktop">
+                    <h5>Profile</h5>
+                    <hr>
+                    <div class="mdl-cell mdl-cell--12-col-desktop setting_option">
+                        <a href="#" class="mdl-button mdl-js-button mdl-button--raised" ui-sref="list({type: 'Watched'})">Watched</a>
+                        <a href="#" class="mdl-button mdl-js-button mdl-button--raised" ui-sref="list({type: 'Favorites'})">Favorites</a>
+                        <a href="#" class="mdl-button mdl-js-button mdl-button--raised" ui-sref="list({type: 'Rated'})">Rated</a>
+                    </div>
+                </div>
+                <div class="mdl-cell mdl-cell--12-col-desktop">
+                    <h5>Settings</h5>
+                    <hr>
+                    <div class="mdl-cell mdl-cell--12-col-desktop setting_option">
+                        <a id="show-password-dialog" class="mdl-button mdl-js-button mdl-button--raised" ng-click="openPasswordModal()">Update Password</a>
+                        <dialog class="mdl-dialog" id="password-dialog">
+                            <h4 class="mdl-dialog__title" align="center">Update Password</h4>
+                            <div class="mdl-dialog__content">
+                                <form action="#">
+                                    <div class="mdl-grid">
+                                        <!-- Password -->
+                                        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset-desktop">
+                                            <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                                                <input class="mdl-textfield__input" type="password" ng-model="update.password" id="password">
+                                                <label class="mdl-textfield__label" for="password">Password</label>
+                                            </div>
+                                        </div>
+                                        <!-- Confrim Password -->
+                                        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset-desktop">
+                                            <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                                                <input class="mdl-textfield__input" type="password" ng-model="update.confirm_password" id="confirm_password">
+                                                <label class="mdl-textfield__label" for="confirm_password">Confrim Password</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="mdl-dialog__actions">
+                                <button type="button" class="mdl-button mdl-button--colored" ng-click="updatePassword()">Update</button>
+                                <button type="button" class="mdl-button mdl-button--colored close" ng-click="closePasswordModal()">Close</button>
+                            </div>
+                        </dialog>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+    </div>
+</div>
+
+<dialog id="change-password" class="mdl-dialog mdl-typography--text-center">
+    <span class="close">&times;</span>
+    <h4 class="mdl-dialog__title">Hello World</h4>
+    <div class="mdl-dialog__content">
+        <p>This is some content</p>
+    </div>
+</dialog>

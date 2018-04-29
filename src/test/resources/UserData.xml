@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <user id="1" firstname="Archana" lastname="BS" emailid="archana@gmail.com" password="Arch2011" type="admin" />
+    <user id="2" firstname="Naveen" lastname="S" emailid="naveen@gmail.com" password="naveen" type="user"  />
+</dataset>

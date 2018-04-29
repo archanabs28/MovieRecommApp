@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+
+<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://35.196.103.217:3306/prophet2018spring"></property>
+		<property name="username" value="archana"></property>
+		<property name="password" value="archana"></property>
+
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+				<prop key="hibernate.format_sql">true</prop>
+				 <prop key="connection.autoReconnect">true</prop>
+    			<prop key="connection.autoReconnectForPools">true</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.crud.rest.beans.UserLogin</value>
+				<value>com.crud.rest.beans.Movie</value>
+				<value>com.crud.rest.beans.UserFavList</value>
+			<!--  	<value>com.crud.rest.beans.Collection</value> -->
+				<value>com.crud.rest.beans.Search</value>
+				<value>com.crud.rest.beans.Rating</value>
+			</list>
+		</property>
+
+	</bean>
+
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="userDao" class="com.crud.rest.dao.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="userService" class="com.crud.rest.service.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+
+
+
+	<bean id="movieDao" class="com.crud.rest.dao.MovieDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="movieService" class="com.crud.rest.service.MovieServiceImpl">
+		<property name="movieDao" ref="movieDao"></property>
+	</bean>
+	<bean id="userFavListDao" class="com.crud.rest.dao.UserFavListDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="userFavListService" class="com.crud.rest.service.UserFavListServiceImpl">
+		<property name="userFavListDao" ref="userFavListDao"></property>
+	</bean>
+
+	<!-- <bean id="collectionDao" class="com.crud.rest.dao.CollectionDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="collectionService" class="com.crud.rest.service.CollectionServiceImpl">
+		<property name="collectionDao" ref="collectionDao"></property>
+	</bean> -->
+
+	<bean id="searchDao" class="com.crud.rest.dao.SearchDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="searchService" class="com.crud.rest.service.SearchServiceImpl">
+		<property name="searchDao" ref="searchDao"></property>
+	</bean>
+
+	<bean id="ratingDao" class="com.crud.rest.dao.RatingDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="ratingService" class="com.crud.rest.service.RatingServiceImpl">
+		<property name="ratingDao" ref="ratingDao"></property>
+	</bean>
+
+
+
+</beans>
